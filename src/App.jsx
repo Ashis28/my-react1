@@ -1,14 +1,13 @@
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
-import Food from './Food.jsx';
+//Conditional rendering -> Allows u to control what gets rendered in ur application
+//          based on certain conditions
+//          {show , hide  or change components}
 
+import UserGreeting from "./UserGreeting.jsx";
 function App() {
   return (
     <>
-      <Header />
-      <Food />
-      <Food />
-      <Footer />
+      <UserGreeting isLoggedin={true} userName={"BroCode"}/>
+      <UserGreeting/>
     </>
   );
 }
