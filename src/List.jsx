@@ -84,7 +84,7 @@ But in an unordered list <ul>, only <li> elements are allowed as direct children
 Here, <b> is a sibling to <li> inside <ul>, which is invalid HTML and will cause <issues className=""></issues>
 */
 
-
+/*
 function List() {
     const fruits = [
         {name: "apple", calories: 95},
@@ -108,4 +108,32 @@ function List() {
         </ul>
     );
 }
+export default List;
+*/
+
+//now working with props in renderLists
+function List(props) {
+    // Create a copy of the array to avoid mutating the original props
+    let fruits = [...props.items]; //it creates a shwallow copy
+    
+    // Sort by calories (ascending order)
+    fruits.sort((a, b) => a.calories - b.calories);
+    
+    // Alternative: Sort by name
+    // fruits.sort((a, b) => a.name.localeCompare(b.name));
+    
+    return (
+        <div>
+            <h2>{props.category}</h2>
+            <ul>
+                {fruits.map((fruit, index) => (
+                    <li key={index}>
+                        {fruit.name} <b>{fruit.calories}</b>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
 export default List;
