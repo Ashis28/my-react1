@@ -1,16 +1,35 @@
-.welcome-msg{
+.Heading {
   font-size: 2em;
-  background-color: rgb(48, 161, 206);
-  color: white;
-  border-radius: 5px;
-  margin: 0;
-  width: 400px;
+  background: linear-gradient(90deg, #ffe4c4 60%, #fff7e6 100%);
+  color: #333;
+  width: 260px;
+  padding: 16px 0 8px 20px;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 0;
+  letter-spacing: 1px;
+  font-weight: 700;
 }
-.login-prompt{
-  font-size: 2em;
-  background-color: rgb(144, 209, 144);
-  color: white;
-  border-radius: 5px;
-  margin: 0;
-  width: 400px;
+
+.MyList {
+  background: linear-gradient(90deg, #bfe9e9 60%, #e6f7f7 100%);
+  width: 260px;
+  padding: 16px 20px 16px 32px;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  margin-top: 0;
+  font-size: 1.1em;
+  list-style: decimal inside;
+}
+
+.MyList li {
+  margin-bottom: 8px;
+  padding: 4px 0;
+  transition: background 0.2s;
+  border-radius: 6px;
+}
+
+.MyList li:hover {
+  background: #e0f7fa;
+  font-weight: 500;
 }
