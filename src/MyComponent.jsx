@@ -1,76 +1,53 @@
-/* onChange() -  Event handler use primarily with form elements 
-                 e.g. <input> , <textarea> , <select> , <radio>
-                 Triggers a function everytime the value of input changes
+/*
+    updater function - A function that passed as an argument to setState() usually
+    ex. setYear(year + 1)
+    Allow for safe updaes based on previous state
+    Used for multiple state updates and asynchronus functions
+    Good practise to use updater functions
 */
 
-import React , {useState} from 'react';
+import React ,{useState} from 'react'
 
 function MyComponent(){
 
-    let [name,setName] = useState("default");
-    let [quantity,setQuantity] = useState(0);
-    let [payMent,setPayment] = useState("Choose a payment method");
+    let [count,setCount] = useState(0);
 
-    let [shipped,setShipment] = useState();
+    function increament()
+    {
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+        //use the current state to calculate the next state
+        //set functions do not trigger an update
+        // React batches together state updates for perfomance reasons
+        // Next state bocomes the current state after an update.
+
+        // setCount(count+1);
+        // setCount(count+1)
+
+        //but using updater function
+        // take PENDING state to calculate the next state
+        // react puts updater function in a queue (waiting in line)
+        // During the render it will call them in the same order
+
+        setCount(c=>c+1);
+        setCount(c=>c+1);
     }
-
-    const handlePayment = (event) =>{
-        setPayment(event.target.value);
+    let reset = ()=>{
+        setCount(0);
     }
-
-    const handleShipment = (event) =>{
-        setShipment(event.target.value);
+    let decrement = ()=>{
+        // setCount(count-1);
+        setCount(c=>c-1);
     }
-
-  
-    return(
+    return (
         <div>
-             <input value={name} onChange={handleNameChange}></input>
-             <p>{name}</p>
-
-             <input
-                value={quantity}
-                type="number"
-                onChange={(e) => setQuantity(e.target.value)}
-             />
-             <p>{quantity}</p>
-
-             <select value={payMent} onChange={handlePayment}>
-                <option disabled>Choose a payment method</option>
-                <option value="visa">Visa</option>
-                <option value="paytm">Paytm</option>
-                <option value="mastercard">Master Card</option>
-             </select>
-             <p>your payment method is :{payMent}</p>
-
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Online"
-                    checked={shipped === "Online"}
-                    onChange={handleShipment}
-                />
-                Online
-             </label>
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Offline"
-                    checked={shipped === "Offline"}
-                    onChange={handleShipment}
-                />
-                Offline
-             </label>
-             <p>delivery mode : {shipped}</p>
-
+            <p>count : {count}</p>
+            <button onClick={increament}>increament</button>
+            <button onClick={reset}>reset</button>
+            <button onClick={decrement}>decrement</button>
         </div>
-       
+        
     );
+    
 }
 
 export default MyComponent;
