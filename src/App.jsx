@@ -1,23 +1,18 @@
 
-//props   - readonly properties that are shared between jsx
-//    A parent component can send data to child component
-//  <component key = value/>
+/*  React hook - A special function that allows functional components
+                to use react features without writing class components (React v16.8)
+                useState, useEffect, useContext, useReducer, useCallback and more
+    userState () - A react hook that allows you the creation of a stateful variable
+                And a setter function to update its value in the virtual dom.
+                [name,setName]
 
-// propstypes - it is a mechanism that ensures that passed value is of correct data type
-//              age:{PropTypes.number}
 
-import Student from './Student.jsx'
+*/
+import MyComponent from './MyComponent.jsx'
 
 function App() {
   return (
-    <>
-      <Student name="Spongebob" age={19} isStudent = {false}/>
-      <Student name="patrick" age={22} isStudent = {true}/>
-      <Student name="squidword" age={19} isStudent = {false}/>
-      <Student name="sandy" age={37} isStudent = {true}/>
-      <Student name="abc"/>
-
-    </>
+    <MyComponent/>
   );
 }
 
