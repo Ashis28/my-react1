@@ -1,75 +1,35 @@
-/* onChange() -  Event handler use primarily with form elements 
-                 e.g. <input> , <textarea> , <select> , <radio>
-                 Triggers a function everytime the value of input changes
-*/
 
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 
-function MyComponent(){
+function MyComponent() {
 
-    let [name,setName] = useState("default");
-    let [quantity,setQuantity] = useState(0);
-    let [payMent,setPayment] = useState("Choose a payment method");
+    const [foods, setFoods] = useState(["Apple", "orange", "Banana"]);
 
-    let [shipped,setShipment] = useState();
-
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    function handleAddFood(){
+        const input = document.getElementById("food-cart");
+        const newFood = input.value.trim();
+        if (newFood) {
+            setFoods([...foods, newFood]);
+            input.value = "";
+        }
     }
 
-    const handlePayment = (event) =>{
-        setPayment(event.target.value);
+    function handleRemoveFood(index){
+        setFoods(f => f.filter((_, i) => i !== index));
     }
 
-    const handleShipment = (event) =>{
-        setShipment(event.target.value);
-    }
-
-  
-    return(
+    return (
         <div>
-             <input value={name} onChange={handleNameChange}></input>
-             <p>{name}</p>
+            <h2>List of food</h2>
+            <ul>
+                {foods.map((element, index) =>
+                    <li key={index} onClick={()=>handleRemoveFood(index)} >{element}</li>
+                )}
+            </ul>
 
-             <input
-                value={quantity}
-                type="number"
-                onChange={(e) => setQuantity(e.target.value)}
-             />
-             <p>{quantity}</p>
-
-             <select value={payMent} onChange={handlePayment}>
-                <option disabled>Choose a payment method</option>
-                <option value="visa">Visa</option>
-                <option value="paytm">Paytm</option>
-                <option value="mastercard">Master Card</option>
-             </select>
-             <p>your payment method is :{payMent}</p>
-
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Online"
-                    checked={shipped === "Online"}
-                    onChange={handleShipment}
-                />
-                Online
-             </label>
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Offline"
-                    checked={shipped === "Offline"}
-                    onChange={handleShipment}
-                />
-                Offline
-             </label>
-             <p>delivery mode : {shipped}</p>
-
+            <input type="text" id='food-cart'/>
+            <button onClick={handleAddFood}>AddFood</button>
         </div>
-       
     );
 }
 
