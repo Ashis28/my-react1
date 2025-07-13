@@ -7,69 +7,34 @@ import React , {useState} from 'react';
 
 function MyComponent(){
 
-    let [name,setName] = useState("default");
-    let [quantity,setQuantity] = useState(0);
-    let [payMent,setPayment] = useState("Choose a payment method");
+    const [car,setObject] = useState({name : "ford",
+                                      model : "mustang",
+                                       year : 2025 });
 
-    let [shipped,setShipment] = useState();
+    function handleNameChange(e){
+        //this will update as Representing you ford then next text will be vanish
+        // setObject({name:e.text.value});
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+        //use
+        setObject(c=>({...c,name:e.target.value}))
     }
-
-    const handlePayment = (event) =>{
-        setPayment(event.target.value);
+    function handleYearChange(e){
+        // setObject(prevCar=>({...prevCar,year:e.target.value}));
+        setObject({...car,year:e.target.value});  //...car = {name:"abc",mode:"xyz",year:1234}
+        //and when two objects properties repeat the second one comes so we use ...spread operator
     }
-
-    const handleShipment = (event) =>{
-        setShipment(event.target.value);
-    }
-
-  
     return(
         <div>
-             <input value={name} onChange={handleNameChange}></input>
-             <p>{name}</p>
+            <p>Representing you {car.name} {car.model} {car.year}</p>
 
-             <input
-                value={quantity}
-                type="number"
-                onChange={(e) => setQuantity(e.target.value)}
-             />
-             <p>{quantity}</p>
-
-             <select value={payMent} onChange={handlePayment}>
-                <option disabled>Choose a payment method</option>
-                <option value="visa">Visa</option>
-                <option value="paytm">Paytm</option>
-                <option value="mastercard">Master Card</option>
-             </select>
-             <p>your payment method is :{payMent}</p>
-
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Online"
-                    checked={shipped === "Online"}
-                    onChange={handleShipment}
-                />
-                Online
-             </label>
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Offline"
-                    checked={shipped === "Offline"}
-                    onChange={handleShipment}
-                />
-                Offline
-             </label>
-             <p>delivery mode : {shipped}</p>
-
+            <input type="text" value={car.name} onChange={handleNameChange}/>
+            <input
+                type="text"
+                value={car.model}
+                onChange={e => setObject(c => ({ ...c, model: e.target.value }))}
+            />
+            <input type="number" value={car.year} onChange={handleYearChange} />
         </div>
-       
     );
 }
 
