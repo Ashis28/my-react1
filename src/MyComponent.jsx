@@ -1,80 +1,32 @@
-import React, {useState} from "react";
-//useState returns a variable and array and we will be using object destructuring to do so
 
-//1step 1 we will be using a normal variable 
-//ALso u will notice that the name changed in the console but not updated inside the dom
-/*
+import React , {useState} from 'react';
+
 function MyComponent(){
 
-    let [name,setName] = useState();
+    let [count,setCount] = useState(0);
 
-    const updateName = () => {
-        name = "SPongeBob";
-        console.log(name);
+    let increament = ()=>{
+        count++;
+        count = setCount(count);
+    };
+    let decreament = ()=>{
+        count--;
+        count = setCount(count);
+    };
+    let reset = ()=>{
+        count = 0;
+        count = setCount(count);
     };
 
     return(
-        <div>
-            <p>Your name is : {name}</p>
-            <button onClick={updateName}>clickMe</button>
-        </div>
-    );
-}
+        <div className='container'>
 
-export default MyComponent;
-*/
-
-//2 imprivement is use the function returned by react to update in dom as well
-/*
-function MyComponent(){
-
-    let [name,setName] = useState("default");
-
-    const updateName = () => {
-        name = setName("Sponge Bob");
-        // console.log(name);
-    };
-
-    return(
-        <div>
-            <p>Your name is : {name}</p>
-            <button onClick={updateName}>clickMe</button>
-        </div>
-    );
-}
-
-export default MyComponent;
-*/
-
-//3 Adding some more features
-function MyComponent(){
-
-    let [name,setName] = useState("default");
-    let [age,setAge] = useState(0);
-    let [isEmployed,setIsEmployed] = useState(false);
-
-    const updateName = () => {
-        name = setName("SPongeBob");
-    };
-
-    const updateAge = () => {
-        age = setAge(29);
-    };
-
-    const updateStatus = () => {
-        isEmployed = setIsEmployed(isEmployed?false:true);
-    };
-
-    return(
-        <div>
-            <p>Your name is : {name}</p>
-            <button onClick={updateName}>clickMe</button>
-
-            <p>Your age is : {age}</p>
-            <button onClick={updateAge}>set Age</button>
-
-            <p>Your name is : {`${isEmployed}`}</p>
-            <button onClick={updateStatus}>toggle status</button>
+            <p>{`${count}`}</p>
+            
+            <button onClick={increament}>increament</button>
+            <button onClick={reset}>reset</button>
+            <button onClick={decreament}>decrement</button>
+            
         </div>
     );
 }
