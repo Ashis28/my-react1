@@ -7,69 +7,40 @@ import React , {useState} from 'react';
 
 function MyComponent(){
 
-    let [name,setName] = useState("default");
-    let [quantity,setQuantity] = useState(0);
-    let [payMent,setPayment] = useState("Choose a payment method");
+    let [carname,setName] = useState("Ford");
+    let [caryear, setYear] = useState(new Date().getFullYear());
+    let [carmodel,setModel] = useState("mustang");
+    let [cars,setCars] = useState([]);
 
-    let [shipped,setShipment] = useState();
-
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    function handleModel(event){
+        setModel(event.target.value);
     }
 
-    const handlePayment = (event) =>{
-        setPayment(event.target.value);
+    function handleRemoveElement(index){
+        setCars(c=>c.filter((e,i)=>i!=index));
     }
-
-    const handleShipment = (event) =>{
-        setShipment(event.target.value);
-    }
-
-  
     return(
         <div>
-             <input value={name} onChange={handleNameChange}></input>
-             <p>{name}</p>
-
-             <input
-                value={quantity}
-                type="number"
-                onChange={(e) => setQuantity(e.target.value)}
-             />
-             <p>{quantity}</p>
-
-             <select value={payMent} onChange={handlePayment}>
-                <option disabled>Choose a payment method</option>
-                <option value="visa">Visa</option>
-                <option value="paytm">Paytm</option>
-                <option value="mastercard">Master Card</option>
-             </select>
-             <p>your payment method is :{payMent}</p>
-
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Online"
-                    checked={shipped === "Online"}
-                    onChange={handleShipment}
-                />
-                Online
-             </label>
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Offline"
-                    checked={shipped === "Offline"}
-                    onChange={handleShipment}
-                />
-                Offline
-             </label>
-             <p>delivery mode : {shipped}</p>
-
+            <h2>List Of car Objects</h2>
+            <ul>
+                {/* BUG: Using forEach here does not return an array of elements to render. 
+                    Suggestion: Use map instead of forEach to render the list of cars. */}
+                {cars.map((element,index)=>
+                    <li key={index} onClick={()=>handleRemoveElement(index)}>
+                        {element.name} - {element.model} - {element.year}
+                    </li>
+                )}
+            </ul>
+            <input type="text" value={carname} onChange={(event)=>setName(event.target.value)} />
+            <br />
+            <input type="text" value={carmodel} onChange={handleModel} />
+            <br />
+            <input type="number" value={caryear} onChange={(e)=>setYear(e.target.value)}/>
+            <br />
+            <button onClick={()=>
+                setCars(c=>[...c,{name:carname,model:carmodel,year:caryear}])
+            }>Add Cars</button>
         </div>
-       
     );
 }
 
