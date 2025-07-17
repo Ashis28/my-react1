@@ -1,23 +1,23 @@
 
-import React , {useEffect, useState} from "react";
-function ToDoList(){
+import React, { useState } from "react";
+function ToDoList() {
+    let [taskList, setTaskes] = useState(["Complete react", "start native", "flutter"]);
+    let [task, addTask] = useState("");
 
-    let [taskList,setTaskes] = useState(["Complete react","start native","flutter"]);    
-    let [task,addTask] = useState("");
-
-    function handleAddTask(){
-        addTask(event.target.value)
+    function handleAddTask(event) {
+        addTask(event.target.value);
     }
 
-    function addTaskInList(){
-        setTaskes(t=>[...t,task])
+    function addTaskInList() {
+        setTaskes(t => [...t, task]);
+        addTask(""); // Clear the input after adding
     }
 
-    function deleteTask(index){
-        setTaskes(taskList.filter((_,i)=> index!=i))
+    function deleteTask(index) {
+        setTaskes(taskList.filter((_, i) => index != i));
     }
-    function moveTaskUp(index){
-        if(index === 0) return; // Can't move up the first item
+    function moveTaskUp(index) {
+        if (index === 0) return; // Can't move up the first item
         setTaskes(prevList => {
             const newList = [...prevList];
             [newList[index - 1], newList[index]] = [newList[index], newList[index - 1]];
@@ -38,23 +38,27 @@ function ToDoList(){
             <h2>To Do List</h2>
 
             <div className="first-container">
-                <input type="text" 
-                placeholder={task} onChange={handleAddTask}/>
+                <input
+                    type="text"
+                    value={task}
+                    placeholder="Enter a task"
+                    onChange={handleAddTask}
+                />
 
                 <button onClick={addTaskInList}>Add Task</button>
             </div>
 
             <div className="second-container">
                 <ol>
-                    {taskList.map((element,index) => 
+                    {taskList.map((element, index) => (
                         <li key={index} className="task-lists">
-                            <span>{element}</span> 
-                            
-                            <button onClick={()=>deleteTask(index)}>Delete</button>
-                            <button onClick={()=>moveTaskUp(index)}>🔝</button>
-                            <button onClick={()=>moveTaskDown(index)}>⬇️</button>
+                            <span>{element}</span>
+
+                            <button onClick={() => deleteTask(index)}>Delete</button>
+                            <button onClick={() => moveTaskUp(index)}>🔝</button>
+                            <button onClick={() => moveTaskDown(index)}>⬇️</button>
                         </li>
-                    )}
+                    ))}
                 </ol>
             </div>
         </div>
