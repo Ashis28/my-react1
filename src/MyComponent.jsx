@@ -1,76 +1,84 @@
-/* onChange() -  Event handler use primarily with form elements 
-                 e.g. <input> , <textarea> , <select> , <radio>
-                 Triggers a function everytime the value of input changes
-*/
-
-import React , {useState} from 'react';
-
+//useEffect 
+import React , {useState,useEffect} from 'react';
+/*
 function MyComponent(){
 
-    let [name,setName] = useState("default");
-    let [quantity,setQuantity] = useState(0);
-    let [payMent,setPayment] = useState("Choose a payment method");
+    let [count,setCount] = useState(0);
+    let [color,setColor] = useState("green");
 
-    let [shipped,setShipment] = useState();
-
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    function increaseCnt(){
+        setCount(c => c + 2);
     }
 
-    const handlePayment = (event) =>{
-        setPayment(event.target.value);
+    function changeClr(){
+        setColor(c => c==="green"?"red":"green");
     }
+    // useEffect(()=>{
+    //     document.title = `count : ${count}`
+    // },[]);
 
-    const handleShipment = (event) =>{
-        setShipment(event.target.value);
-    }
+    useEffect(()=>{
+        document.title = `count : ${count}`;
 
-  
+        return () => {
+            //some cleanup code
+        }
+    },[color]);
+    
     return(
         <div>
-             <input value={name} onChange={handleNameChange}></input>
-             <p>{name}</p>
+            <p style={{color : color}}>count : = {count}</p>
+            <button onClick={increaseCnt}>inc</button>
 
-             <input
-                value={quantity}
-                type="number"
-                onChange={(e) => setQuantity(e.target.value)}
-             />
-             <p>{quantity}</p>
+            <button onClick={()=>{ setCount(c=>c-1)}}>dec</button>
 
-             <select value={payMent} onChange={handlePayment}>
-                <option disabled>Choose a payment method</option>
-                <option value="visa">Visa</option>
-                <option value="paytm">Paytm</option>
-                <option value="mastercard">Master Card</option>
-             </select>
-             <p>your payment method is :{payMent}</p>
-
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Online"
-                    checked={shipped === "Online"}
-                    onChange={handleShipment}
-                />
-                Online
-             </label>
-             <label>
-                <input
-                    type="radio"
-                    name="deliveryMode"
-                    value="Offline"
-                    checked={shipped === "Offline"}
-                    onChange={handleShipment}
-                />
-                Offline
-             </label>
-             <p>delivery mode : {shipped}</p>
-
+            <button onClick={changeClr}>changeClr</button>
         </div>
        
     );
 }
+*/
 
+function MyComponent(){
+
+    let [height, setHeight] = useState(window.innerHeight);
+    let [width , setWidth] = useState(window.innerWidth);
+    
+    // window.addEventListener("resize",()=>setWidth(window.innerWidth));
+    // console.log("Event listener added")
+    // window.addEventListener("resize",()=>setHeight(window.innerHeight));
+
+    // it will print thousand event listener added
+
+    useEffect(()=>{
+        window.addEventListener("resize",handleResize);
+        console.log("Event listener added");
+        //window.addEventListener("resize",()=>setHeight(window.innerWidth));
+
+        return() => { 
+            window.removeEventListener("resize",handleResize);
+            console.log("Event listener resized");
+        }
+
+    },[])
+
+    //also we can use more then one useEffect as well like 
+    useEffect(()=>{
+        document.title = ` size = width :  ${width} x hieght: ${height};`
+
+    },[width])
+
+    function handleResize(){
+        setHeight(window.innerHeight);
+        setWidth(window.innerWidth);
+    }
+
+    return(
+        <div>
+            <p > Height : {height}</p>
+            <p> width : {width} </p>
+        </div>
+       
+    );
+}
 export default MyComponent;
