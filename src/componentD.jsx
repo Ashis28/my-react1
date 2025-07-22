@@ -9,3 +9,7 @@ function ComponentD(props) {
 }
 
 export default ComponentD;
+
+//passing props in each component so we can use in last
+
+//Props drillinng
