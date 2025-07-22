@@ -1,9 +1,9 @@
 import ComponentC from "./componentC";
-function ComponentB(props) {
+function ComponentB() {
     return (
         <div className="box">
             <p>componentB</p>
-            <ComponentC user = {props.user}/>
+            <ComponentC/>
         </div>
     );
 }
